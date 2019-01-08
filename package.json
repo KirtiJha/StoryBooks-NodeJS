@@ -1,0 +1,19 @@
+{
+  "name": "storybooks",
+  "version": "1.0.0",
+  "description": "A simple story sharing social network",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KirtiJha/StoryBooks-NodeJS.git"
+  },
+  "author": "Kirti Jha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KirtiJha/StoryBooks-NodeJS/issues"
+  },
+  "homepage": "https://github.com/KirtiJha/StoryBooks-NodeJS#readme"
+}
