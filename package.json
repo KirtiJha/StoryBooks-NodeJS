@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/KirtiJha/StoryBooks-NodeJS/issues"
   },
-  "homepage": "https://github.com/KirtiJha/StoryBooks-NodeJS#readme"
+  "homepage": "https://github.com/KirtiJha/StoryBooks-NodeJS#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.4.2"
+  }
 }
