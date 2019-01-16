@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const session = require('express-session');
 const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose');
@@ -62,8 +63,11 @@ app.use(session({
 }));
 
 // Body-parser middleware
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Method Overwrite Middleware
+app.use(methodOverride('_method'));
 
 // Passport Middleware (Should be after Express session middleware)
 app.use(passport.initialize());

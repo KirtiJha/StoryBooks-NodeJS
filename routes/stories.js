@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const { ensureAuthenticated, ensureGuest } = require('../helpers/auth');
+const {
+  ensureAuthenticated,
+  ensureGuest
+} = require('../helpers/auth');
 
 // Load model
 const Story = mongoose.model('stories');
@@ -9,7 +12,9 @@ const User = mongoose.model('users');
 
 // Stories Index
 router.get('/', (req, res) => {
-  Story.find({status:'public'})
+  Story.find({
+      status: 'public'
+    })
     .populate('user')
     .then(stories => {
       res.render('stories/index', {
@@ -21,14 +26,14 @@ router.get('/', (req, res) => {
 // Show single story
 router.get('/show/:id', (req, res) => {
   Story.findOne({
-    _id: req.params.id
-  })
-  .populate('user')
-  .then(story => {
-    res.render('stories/show', {
-      story: story
+      _id: req.params.id
+    })
+    .populate('user')
+    .then(story => {
+      res.render('stories/show', {
+        story: story
+      });
     });
-  });
 });
 // Add Story Form
 router.get('/add', ensureAuthenticated, (req, res) => {
@@ -38,20 +43,20 @@ router.get('/add', ensureAuthenticated, (req, res) => {
 // Edit Story Form
 router.get('/edit/:id', ensureAuthenticated, (req, res) => {
   Story.findOne({
-    _id: req.params.id
-  })
-  .then(story => {
-    res.render('stories/edit', {
-      story: story
+      _id: req.params.id
+    })
+    .then(story => {
+      res.render('stories/edit', {
+        story: story
+      });
     });
-  });
 });
 
 // Process Add Story
 router.post('/', (req, res) => {
   let allowComments;
 
-  if(req.body.allowComments) {
+  if (req.body.allowComments) {
     allowComments = true;
   } else {
     allowComments = false;
@@ -72,5 +77,33 @@ router.post('/', (req, res) => {
       res.redirect(`/stories/show/${story.id}`);
     });
 });
+
+// Edit Form Process
+router.put('/:id', (req, res) => {
+  Story.findOne({
+      _id: req.params.id
+    })
+    .then(story => {
+      let allowComments;
+
+      if (req.body.allowComments) {
+        allowComments = true;
+      } else {
+        allowComments = false;
+      }
+
+      // New Values
+      story.title = req.body.title;
+      story.body = req.body.body;
+      story.status = req.body.status;
+      story.allowComments = allowComments;
+
+      story.save()
+        .then(story => {
+          res.redirect('/dashboard');
+        })
+    });
+});
+
 
 module.exports = router;
