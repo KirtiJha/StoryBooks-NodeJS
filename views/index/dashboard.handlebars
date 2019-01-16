@@ -19,9 +19,10 @@
           <td>
             <a class="btn left-align" href="/stories/edit/{{id}}"><i class="fa fa-pencil"></i> Edit</a>
 
-            <form action="/stories/{{id}}" method="POST" id="delete-form">
+            <form action="/stories/{{id}}?_method=DELETE" method="POST" id="delete-form">
               <button type="submit" class="btn red"><i class="fa fa-remove"></i> Delete</button>
             </form>
+            <input type="hidden" name="_method" value="DELETE">
           </td>
         </tr>
       {{/each}}

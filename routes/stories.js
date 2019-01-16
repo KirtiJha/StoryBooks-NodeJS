@@ -101,7 +101,15 @@ router.put('/:id', (req, res) => {
       story.save()
         .then(story => {
           res.redirect('/dashboard');
-        })
+        });
+    });
+});
+
+// Delete stories
+router.delete('/:id', (req, res) => {
+  Story.remove({_id: req.params.id})
+    .then(() => {
+      res.redirect('/dashboard');
     });
 });
 
