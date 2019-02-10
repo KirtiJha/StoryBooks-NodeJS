@@ -1,4 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+FacebookStrategy = require('passport-facebook').Strategy;
+
 const mongoose = require('mongoose');
 const keys = require('./keys');
 
@@ -41,6 +43,18 @@ module.exports = function(passport) {
       })
     })
   );
+
+  // Facebook Strategy
+  passport.use(new FacebookStrategy({
+    clientID: keys.FACEBOOK_APP_ID,
+    clientSecret: keys.FACEBOOK_APP_SECRET,
+    callbackURL: "/auth/facebook/callback",
+    proxy: true
+  },(accessToken, refreshToken, profile, done) => {
+    console.log(accessToken);
+    console.log(profile);
+  }
+));
 
   passport.serializeUser(function(user, done) {
     done(null, user.id);

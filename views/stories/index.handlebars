@@ -4,9 +4,9 @@
   <div class="col s12 m4">
     <div class="card">
       <div class="card-image">
-       {{#if user}}
+        {{#if user}}
         {{{editIcon user.id ../user.id id}}}
-       {{/if}}
+        {{/if}}
       </div>
       <div class="card-content center-align">
         <h5>{{title}}</h5>
@@ -15,6 +15,10 @@
         <div class="chip">
           <img src="{{user.image}}">
           <a href="/stories/user/{{user.id}}">{{user.firstName}} {{user.lastName}}</a>
+        </div>
+        <div class="card sticky-action">
+          <button onclick="actOnPost(event);" data-post-id="{{ id }}">Like</button>
+          <span id="likes-count-{{ id }}">{{ likes_count }}</span>
         </div>
       </div>
       <div class="card-action center-align">

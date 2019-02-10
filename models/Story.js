@@ -40,7 +40,9 @@ const StorySchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  likes_count: Number,
+  dislike_count: Number
 });
 
 // Create collection and add schema
