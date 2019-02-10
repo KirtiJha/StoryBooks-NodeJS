@@ -51,10 +51,28 @@ module.exports = function(passport) {
     callbackURL: "/auth/facebook/callback",
     proxy: true
   },(accessToken, refreshToken, profile, done) => {
-    console.log(accessToken);
-    console.log(profile);
-  }
-));
+    const newUser = {
+      facebookID: profile.id,
+      email: profile.emails[0].value,
+      firstName: profile.displayName,
+      lastName: profile.name.familyName
+    }
+    
+    User.findOne({
+      facebookID: profile.id
+    }).then(user => {
+      if(user) {
+        // Return user
+        done(null, user)
+      } else {
+        // Create user
+       new User(newUser)
+        .save()
+        .then(user => done(null, user)); 
+      }
+    })
+    })
+  );
 
   passport.serializeUser(function(user, done) {
     done(null, user.id);

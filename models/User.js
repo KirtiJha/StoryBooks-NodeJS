@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 // Create User Schema
 const UserSchema = new Schema({
   googleID: {
-    type: String,
-    required: true
+    type: String
   },
   email: {
     type: String,
@@ -19,6 +18,9 @@ const UserSchema = new Schema({
   },
   image: {
     type: String
+  },
+  facebookID: {
+    type: String,
   }
 });
 
